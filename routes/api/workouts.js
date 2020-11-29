@@ -18,9 +18,9 @@ router.post('/', [auth, [
 
   try {
     const newWorkout = new Workout({
-      name: req.body.name,
+      title: req.body.name,
       exercises: req.body.exercises,
-      public: req.body.public ? req.body.public : false,
+      isPublic: req.body.isPublic ? req.body.isPublic : false,
       user: req.user.id,
     });
 

@@ -6,7 +6,7 @@ const WorkoutSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'users',
   },
-  name: {
+  title: {
     type: String,
     required: true,
   },
@@ -42,7 +42,7 @@ const WorkoutSchema = new Schema({
       },
     },
   ],
-  public: {
+  isPublic: {
     type: Boolean,
     default: false,
   },

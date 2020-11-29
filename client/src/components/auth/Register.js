@@ -30,11 +30,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   return (
     <>
       <h1 className="large text-primary">Sign Up</h1>
-      <p className="lead">
-        <i className="fas fa-user" />
-        {' '}
-        Create Your Account
-      </p>
+      <p className="lead"><i className="fas fa-user" />{' '}Create Your Account</p>
       <form className="form" onSubmit={e => onSubmit(e)}>
         <div className="form-group">
           <input
@@ -54,10 +50,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             onChange={e => onChange(e)}
             required
           />
-          <small className="form-text">
-            This site uses Gravatar so if you want a profile image, use a
-            Gravatar email
-          </small>
         </div>
         <div className="form-group">
           <input
@@ -81,11 +73,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         </div>
         <input type="submit" className="btn btn-primary" value="Register" />
       </form>
-      <p className="my-1">
-        Already have an account?
-        {' '}
-        <Link to="/login">Sign In</Link>
-      </p>
+      <p className="my-1">Already have an account?{' '}<Link to="/login">Sign In</Link></p>
     </>
   );
 };
