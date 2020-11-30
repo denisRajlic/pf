@@ -9,7 +9,7 @@ const Workout = require('../../models/Workout');
 // @desc      Create a workout
 // @acess     Private
 router.post('/', [auth, [
-  check('name', 'Name is required').not().isEmpty(),
+  check('title', 'Workout title required').not().isEmpty(),
   check('exercises', 'At least one exercise is required').isArray({ min: 1 }),
   check('exercises.*.name', 'Exercise must have a name').not().isEmpty(),
 ]], async (req, res) => {
@@ -18,7 +18,7 @@ router.post('/', [auth, [
 
   try {
     const newWorkout = new Workout({
-      title: req.body.name,
+      title: req.body.title,
       exercises: req.body.exercises,
       isPublic: req.body.isPublic ? req.body.isPublic : false,
       user: req.user.id,

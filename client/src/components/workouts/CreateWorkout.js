@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const CreateWorkout = () => {
+import { createWorkout } from '../../actions/workout';
+
+const CreateWorkout = ({ createWorkout }) => {
   const [state, setState] = useState({
     title: '',
     isPublic: false,
@@ -9,16 +12,24 @@ const CreateWorkout = () => {
 
   const [exercise, setExercise] = useState({
     name: 'Bench Press',
+    bodypart: '',
+    sets: '',
+    reps: '',
+    weight: '',
+    comment: '',
   });
 
   const {
     title, isPublic,
   } = state;
 
-  const { name } = exercise;
+  const {
+    name, bodypart, sets, reps, weight, comment,
+  } = exercise;
 
   const onSubmit = async e => {
     e.preventDefault();
+    createWorkout({ title, isPublic, exercise });
   };
 
   const onClick = () => {
@@ -53,6 +64,61 @@ const CreateWorkout = () => {
       </div>
 
       <div className="form-group">
+        <input
+          type="text"
+          placeholder="Body Part"
+          value={bodypart}
+          onChange={e => setExercise({ ...exercise, [e.target.name]: e.target.value })}
+          name="bodypart"
+          minLength="1"
+        />
+      </div>
+
+      <div className="form-group">
+        <input
+          type="text"
+          placeholder="Sets"
+          value={sets}
+          onChange={e => setExercise({ ...exercise, [e.target.name]: e.target.value })}
+          name="sets"
+          minLength="1"
+        />
+      </div>
+
+      <div className="form-group">
+        <input
+          type="text"
+          placeholder="Reps"
+          value={reps}
+          onChange={e => setExercise({ ...exercise, [e.target.name]: e.target.value })}
+          name="reps"
+          minLength="1"
+        />
+      </div>
+
+      <div className="form-group">
+        <input
+          type="text"
+          placeholder="Weight"
+          value={weight}
+          onChange={e => setExercise({ ...exercise, [e.target.name]: e.target.value })}
+          name="weight"
+          minLength="1"
+        />
+      </div>
+
+      <div className="form-group">
+        <input
+          type="text"
+          placeholder="Comment"
+          value={comment}
+          onChange={e => setExercise({ ...exercise, [e.target.name]: e.target.value })}
+          name="comment"
+          minLength="1"
+        />
+      </div>
+
+      <div className="form-group">
         <label htmlFor="isPublic">Make Workout Public?{' '}
           <input
             type="checkbox"
@@ -67,4 +133,8 @@ const CreateWorkout = () => {
   );
 };
 
-export default connect(null)(CreateWorkout);
+CreateWorkout.propTypes = {
+  createWorkout: PropTypes.func.isRequired,
+};
+
+export default connect(null, { createWorkout })(CreateWorkout);
