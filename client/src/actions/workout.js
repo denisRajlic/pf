@@ -3,6 +3,8 @@ import setAlert from './alert';
 import {
   CREATE_WORKOUT,
   WORKOUT_FAIL,
+  WORKOUT_ERROR,
+  GET_WORKOUTS,
 } from './types';
 
 // Create workout
@@ -39,6 +41,23 @@ export const createWorkout = ({
 
     dispatch({
       type: WORKOUT_FAIL,
+    });
+  }
+};
+
+// Get workouts by user ID
+export const getWorkouts = userId => async dispatch => {
+  try {
+    const res = await axios.get(`/api/workouts/user/${userId}`);
+
+    dispatch({
+      type: GET_WORKOUTS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: WORKOUT_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };

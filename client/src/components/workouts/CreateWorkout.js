@@ -11,7 +11,7 @@ const CreateWorkout = ({ createWorkout }) => {
   });
 
   const [exercise, setExercise] = useState({
-    name: 'Bench Press',
+    name: '',
     bodypart: '',
     sets: '',
     reps: '',

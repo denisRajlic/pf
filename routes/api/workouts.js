@@ -3,6 +3,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 
 const router = express.Router();
+const User = require('../../models/User');
 const Workout = require('../../models/Workout');
 
 // @route     POST api/workouts
@@ -27,6 +28,20 @@ router.post('/', [auth, [
     const workout = await newWorkout.save();
 
     res.json(workout);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route     GET api/workouts/user/:user_id
+// @desc      Get workouts by user id
+// @acess     Private
+router.get('/user/:user_id', auth, async (req, res) => {
+  try {
+    const workout = await Workout.find({ user: req.user.id }).populate('user', ['name'], User);
+    if (!workout) return res.json({ msg: 'Workout not found' });
+    return res.json(workout);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
