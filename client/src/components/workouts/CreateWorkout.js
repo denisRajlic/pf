@@ -19,6 +19,8 @@ const CreateWorkout = ({ createWorkout }) => {
     comment: '',
   });
 
+  const [exercises, setExercises] = useState([]);
+
   const {
     title, isPublic,
   } = state;
@@ -29,7 +31,7 @@ const CreateWorkout = ({ createWorkout }) => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    createWorkout({ title, isPublic, exercise });
+    createWorkout({ title, isPublic, exercises });
   };
 
   const onClick = () => {
@@ -38,8 +40,25 @@ const CreateWorkout = ({ createWorkout }) => {
 
   const onChange = e => setState({ ...state, [e.target.name]: e.target.value });
 
+  const onAddExercise = () => {
+    setExercises([
+      ...exercises,
+      exercise,
+    ]);
+    setExercise({
+      ...exercise,
+      name: '',
+      bodypart: '',
+      sets: '',
+      reps: '',
+      weight: '',
+      comment: '',
+    });
+  };
+
   return (
     <form className="form" onSubmit={e => onSubmit(e)}>
+      <h2 className="text-primary">Title</h2>
       <div className="form-group">
         <input
           type="text"
@@ -50,7 +69,7 @@ const CreateWorkout = ({ createWorkout }) => {
           minLength="1"
         />
       </div>
-      <h2>List Exercises</h2>
+      <h2 className="text-primary">List Exercises</h2>
 
       <div className="form-group">
         <input
@@ -117,6 +136,8 @@ const CreateWorkout = ({ createWorkout }) => {
           minLength="1"
         />
       </div>
+
+      <div className="btn btn-primary" onClick={e => onAddExercise(e)}>Add another exercise</div>
 
       <div className="form-group">
         <label htmlFor="isPublic">Make Workout Public?{' '}

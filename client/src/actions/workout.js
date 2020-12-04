@@ -11,17 +11,13 @@ import {
 export const createWorkout = ({
   title,
   isPublic,
-  exercise,
+  exercises,
 }) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
-
-  const exercises = [exercise];
-
-  console.log(title);
 
   const body = JSON.stringify({ title, isPublic, exercises });
 
