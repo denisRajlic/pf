@@ -39,7 +39,7 @@ router.post('/', [auth, [
 // @acess     Private
 router.get('/', auth, async (req, res) => {
   try {
-    const workout = await Workout.find({ user: req.user.id }).populate('user', ['name'], User);
+    const workout = await Workout.find({ user: req.user.id }).sort({ date: -1 }).populate('user', ['name'], User);
     if (!workout) return res.json({ msg: 'Workout not found' });
     return res.json(workout);
   } catch (err) {

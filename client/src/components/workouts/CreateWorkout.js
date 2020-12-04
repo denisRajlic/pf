@@ -71,6 +71,8 @@ const CreateWorkout = ({ createWorkout }) => {
       </div>
       <h2 className="text-primary">List Exercises</h2>
 
+      {exercises.length > 0 && (<h3>Number of exercises in list: <span className="text-primary">{exercises.length}</span></h3>)}
+
       <div className="form-group">
         <input
           type="text"

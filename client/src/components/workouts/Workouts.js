@@ -14,36 +14,40 @@ const Workouts = ({
     getWorkouts(match.params.id);
   }, [loadUser, getWorkouts, match]);
 
-  console.log(match.params.id);
-
-  return (
+  return loading ? (
+    <Spinner />
+  ) : (
     <div>
-      <h1>Hello{' '}{user && user.name},{' '}here are your workouts</h1>
+      <h1>Hello{' '}{user && user.name}!</h1>
+      {workouts.length > 0
+        ? (<h2>Here Are Your Workouts!</h2>)
+        : (<h2>No Workouts Yet...Create Your First One Now!</h2>)}
       <Link to="/create-workout" className="btn btn-primary">Create New Workout</Link>
-      {loading ? <Spinner /> : (
-        workouts.map(workout => (
-          <>
+      {
+        workouts.map((workout, index) => (
+          <Fragment key={index}>
             <div className="profiles">
               <h2 className="text-primary">{workout.title}</h2>
-              {workout.exercises.map(exercise => {
+              {workout.exercises.map((exercise, index) => {
                 const {
                   name, bodypart, reps, sets, weight, comment,
                 } = exercise;
                 return (
-                  <>
+                  <Fragment key={index}>
+                    <h3 className="text-primary">Exercise {index + 1}:</h3>
                     <h4>Name: {name}</h4>
                     <h4>Bodypart: {bodypart}</h4>
                     <h4>Sets: {sets}</h4>
                     <h4>Reps: {reps}</h4>
                     <h4>Weight: {weight}</h4>
                     <h4>Comment: {comment}</h4>
-                  </>
+                  </Fragment>
                 );
               })}
             </div>
-          </>
+          </Fragment>
         ))
-      )}
+      }
     </div>
   );
 };
