@@ -34,10 +34,10 @@ router.post('/', [auth, [
   }
 });
 
-// @route     GET api/workouts/user/:user_id
+// @route     GET api/workouts
 // @desc      Get workouts by user id
 // @acess     Private
-router.get('/user/:user_id', auth, async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const workout = await Workout.find({ user: req.user.id }).populate('user', ['name'], User);
     if (!workout) return res.json({ msg: 'Workout not found' });

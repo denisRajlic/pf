@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
 
-const Login = ({ auth: { isAuthenticated, user }, login }) => {
+const Login = ({ auth: { isAuthenticated }, login }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -20,7 +20,7 @@ const Login = ({ auth: { isAuthenticated, user }, login }) => {
   };
 
   // Redirect if logged in
-  if (isAuthenticated && user) return <Redirect to={`/workouts/user/${user._id}`} />;
+  if (isAuthenticated) return <Redirect to="/workouts" />;
 
   return (
     <>

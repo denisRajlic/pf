@@ -46,9 +46,9 @@ export const createWorkout = ({
 };
 
 // Get workouts by user ID
-export const getWorkouts = userId => async dispatch => {
+export const getWorkouts = () => async dispatch => {
   try {
-    const res = await axios.get(`/api/workouts/user/${userId}`);
+    const res = await axios.get('/api/workouts');
 
     dispatch({
       type: GET_WORKOUTS,

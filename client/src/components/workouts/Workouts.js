@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadUser } from '../../actions/auth';
 import { getWorkouts } from '../../actions/workout';
+import Spinner from '../layout/Spinner';
 
 const Workouts = ({
   match, auth: { user }, workout: { workouts, loading }, loadUser, getWorkouts,
@@ -13,29 +14,33 @@ const Workouts = ({
     getWorkouts(match.params.id);
   }, [loadUser, getWorkouts, match]);
 
+  console.log(match.params.id);
+
   return (
     <div>
       <h1>Hello{' '}{user && user.name},{' '}here are your workouts</h1>
       <Link to="/create-workout" className="btn btn-primary">Create New Workout</Link>
-      {!loading && (
+      {loading ? <Spinner /> : (
         workouts.map(workout => (
           <>
-            <h3>Title: {workout.title}</h3>
-            {workout.exercises.map(exercise => {
-              const {
-                name, bodypart, reps, sets, weight, comment,
-              } = exercise;
-              return (
-                <>
-                  <h4>Name: {name}</h4>
-                  <h4>Bodypart: {bodypart}</h4>
-                  <h4>Sets: {sets}</h4>
-                  <h4>Reps: {reps}</h4>
-                  <h4>Weight: {weight}</h4>
-                  <h4>Comment: {comment}</h4>
-                </>
-              );
-            })}
+            <div className="profiles">
+              <h2 className="text-primary">{workout.title}</h2>
+              {workout.exercises.map(exercise => {
+                const {
+                  name, bodypart, reps, sets, weight, comment,
+                } = exercise;
+                return (
+                  <>
+                    <h4>Name: {name}</h4>
+                    <h4>Bodypart: {bodypart}</h4>
+                    <h4>Sets: {sets}</h4>
+                    <h4>Reps: {reps}</h4>
+                    <h4>Weight: {weight}</h4>
+                    <h4>Comment: {comment}</h4>
+                  </>
+                );
+              })}
+            </div>
           </>
         ))
       )}

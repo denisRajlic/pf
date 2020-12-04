@@ -15,7 +15,7 @@ const Routes = () => (
     <Switch>
       <Route exact path="/register" component={Register} />
       <Route exact path="/login" component={Login} />
-      <PrivateRoute exact path="/workouts/user/:id" component={Workouts} />
+      <PrivateRoute exact path="/workouts" component={Workouts} />
       <PrivateRoute exact path="/create-workout" component={CreateWorkout} />
     </Switch>
   </section>
