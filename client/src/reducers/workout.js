@@ -4,6 +4,7 @@ import {
   GET_WORKOUT,
   GET_WORKOUTS,
   WORKOUT_ERROR,
+  DELETE_WORKOUT,
 } from '../actions/types';
 
 const initialState = {
@@ -34,6 +35,12 @@ export default function workoutReducer(state = initialState, action) {
         ...state,
         workouts: [payload, ...state.workouts],
         workout: payload,
+        loading: false,
+      };
+    case DELETE_WORKOUT:
+      return {
+        ...state,
+        workouts: state.workouts.filter(workout => workout._id !== payload),
         loading: false,
       };
     case WORKOUT_FAIL:

@@ -5,6 +5,7 @@ import {
   WORKOUT_FAIL,
   WORKOUT_ERROR,
   GET_WORKOUTS,
+  DELETE_WORKOUT,
 } from './types';
 
 // Create workout
@@ -55,5 +56,25 @@ export const getWorkouts = () => async dispatch => {
       type: WORKOUT_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
+  }
+};
+
+// Delete Workout
+export const deleteWorkout = id => async dispatch => {
+  if (window.confirm('Are you sure you want to delete this workout?')) {
+    try {
+      await axios.delete(`/api/workouts/${id}`);
+      dispatch({
+        type: DELETE_WORKOUT,
+        payload: id,
+      });
+
+      dispatch(setAlert('Workout deleted', 'success'));
+    } catch (err) {
+      dispatch({
+        type: WORKOUT_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    }
   }
 };

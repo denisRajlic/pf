@@ -482,6 +482,13 @@ button {
   font-size: 0.8rem;
 }
 
+.workout {
+  border: solid 1px grey;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  padding: 16px;
+}
+
 .post .post-date {
   color: #aaa;
   font-size: 0.8rem;

@@ -14,3 +14,4 @@ export const UPDATE_LIKES = 'UPDATE_LIKES';
 export const CREATE_WORKOUT = 'CREATE_WORKOUT';
 export const WORKOUT_FAIL = 'WORKOUT_FAIL';
 export const WORKOUT_ERROR = 'WORKOUT_ERROR';
+export const DELETE_WORKOUT = 'DELETE_WORKOUT';

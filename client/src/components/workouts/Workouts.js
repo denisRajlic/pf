@@ -3,11 +3,17 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadUser } from '../../actions/auth';
-import { getWorkouts } from '../../actions/workout';
+import { getWorkouts, deleteWorkout } from '../../actions/workout';
+
 import Spinner from '../layout/Spinner';
 
 const Workouts = ({
-  match, auth: { user }, workout: { workouts, loading }, loadUser, getWorkouts,
+  match,
+  auth: { user },
+  workout: { workouts, loading },
+  loadUser,
+  getWorkouts,
+  deleteWorkout,
 }) => {
   useEffect(() => {
     loadUser();
@@ -26,7 +32,7 @@ const Workouts = ({
       {
         workouts.map((workout, index) => (
           <Fragment key={index}>
-            <div className="profiles">
+            <div className="workout">
               <h2 className="text-primary">{workout.title}</h2>
               {workout.exercises.map((exercise, index) => {
                 const {
@@ -44,6 +50,9 @@ const Workouts = ({
                   </Fragment>
                 );
               })}
+              <div className="btn btn-danger" onClick={() => deleteWorkout(workout._id)}>
+                <i className="fas fa-times" />
+              </div>
             </div>
           </Fragment>
         ))
@@ -58,6 +67,7 @@ Workouts.propTypes = {
   getWorkouts: PropTypes.func.isRequired,
   workout: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
+  deleteWorkout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -65,4 +75,4 @@ const mapStateToProps = state => ({
   workout: state.workout,
 });
 
-export default connect(mapStateToProps, { loadUser, getWorkouts })(Workouts);
+export default connect(mapStateToProps, { loadUser, getWorkouts, deleteWorkout })(Workouts);

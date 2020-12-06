@@ -48,4 +48,24 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// @route     DELETE api/workouts/:id
+// @desc      Delete workout
+// @acess     Private
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const workout = await Workout.findById(req.params.id);
+    if (!workout) return res.json({ msg: 'Workout not found!' });
+
+    // Check user
+    if (workout.user.toString() !== req.user.id) return res.status(401).json({ msg: 'User not authorized' });
+
+    await workout.remove();
+
+    return res.json({ msg: 'Workout removed' });
+  } catch (err) {
+    if (err.kind === 'ObjectId') return res.status(404).json({ msg: 'Workout not found' }); // This runs if the ID passed in is not a valid object id
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;
