@@ -24,41 +24,39 @@ const Workouts = ({
   ) : (
     <div>
       <h1>Hello{' '}{user && user.name}!</h1>
-      {workouts.length > 0
+      {workouts && workouts.length > 0
         ? (<h2>Here Are Your Workouts!</h2>)
         : (<h2>No Workouts Yet...Create Your First One Now!</h2>)}
       <Link to="/create-workout" className="btn btn-primary">Create New Workout</Link>
-      {
-        workouts.map((workout, index) => (
-          <Fragment key={index}>
-            <div className="workout">
-              <h2 className="text-primary">{workout.title}</h2>
-              {workout.exercises.map((exercise, index) => {
-                const {
-                  name, bodypart, reps, sets, weight, comment,
-                } = exercise;
-                return (
-                  <Fragment key={index}>
-                    <h3 className="text-primary">Exercise {index + 1}:</h3>
-                    <h4>Name: {name}</h4>
-                    <h4>Bodypart: {bodypart}</h4>
-                    <h4>Sets: {sets}</h4>
-                    <h4>Reps: {reps}</h4>
-                    <h4>Weight: {weight}</h4>
-                    <h4>Comment: {comment}</h4>
-                  </Fragment>
-                );
-              })}
-              <div className="buttons">
-                <Link to={`/edit-workout/${workout._id}`} className="btn btn-primary">Edit</Link>
-                <div className="btn btn-danger" onClick={() => deleteWorkout(workout._id)}>
-                  <i className="fas fa-times" />
-                </div>
+      {workouts && workouts.map((workout, index) => (
+        <Fragment key={index}>
+          <div className="workout">
+            <h2 className="text-primary">{workout.title}</h2>
+            {workout.exercises.map((exercise, index) => {
+              const {
+                name, bodypart, reps, sets, weight, comment,
+              } = exercise;
+              return (
+                <Fragment key={index}>
+                  <h3 className="text-primary">Exercise {index + 1}:</h3>
+                  <h4>Name: {name}</h4>
+                  <h4>Bodypart: {bodypart}</h4>
+                  <h4>Sets: {sets}</h4>
+                  <h4>Reps: {reps}</h4>
+                  <h4>Weight: {weight}</h4>
+                  <h4>Comment: {comment}</h4>
+                </Fragment>
+              );
+            })}
+            <div className="buttons">
+              <Link to={`/edit-workout/${workout._id}`} className="btn btn-primary">Edit</Link>
+              <div className="btn btn-danger" onClick={() => deleteWorkout(workout._id)}>
+                <i className="fas fa-times" />
               </div>
             </div>
-          </Fragment>
-        ))
-      }
+          </div>
+        </Fragment>
+      ))}
     </div>
   );
 };

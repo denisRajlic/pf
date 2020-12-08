@@ -1,5 +1,5 @@
 import React, {
-  useState, Fragment, useRef, useEffect,
+  useState, Fragment,
 } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -8,45 +8,42 @@ import PropTypes from 'prop-types';
 import { createWorkout } from '../../actions/workout';
 
 const CreateWorkout = ({ createWorkout, history }) => {
-  const isSubmit = useRef(false);
+  const [selectedEx, setSelectedEx] = useState(0);
 
   const [state, setState] = useState({
     title: '',
     isPublic: false,
   });
 
-  const [exercise, setExercise] = useState({
+  const initialState = {
     name: '',
     bodypart: '',
     sets: '',
     reps: '',
     weight: '',
     comment: '',
-  });
+  };
 
-  const [exercises, setExercises] = useState([]);
+  const [exercises, setExercises] = useState([
+    {
+      name: '',
+      bodypart: '',
+      sets: '',
+      reps: '',
+      weight: '',
+      comment: '',
+    },
+  ]);
 
   const {
     title, isPublic,
   } = state;
 
-  const {
-    name, bodypart, sets, reps, weight, comment,
-  } = exercise;
-
   const onSubmit = async e => {
     e.preventDefault();
-    isSubmit.current = true;
-    setExercises([...exercises, exercise]);
+    createWorkout({ title, isPublic, exercises });
+    history.push('/workouts');
   };
-
-  // This is run after setExercises in onSubmit()
-  useEffect(() => {
-    if (isSubmit.current === true) {
-      createWorkout({ title, isPublic, exercises });
-      history.push('/workouts');
-    }
-  });
 
   const onClick = () => {
     setState({ ...state, isPublic: !isPublic });
@@ -57,17 +54,24 @@ const CreateWorkout = ({ createWorkout, history }) => {
   const onAddExercise = () => {
     setExercises([
       ...exercises,
-      exercise,
+      initialState,
     ]);
-    setExercise({
-      ...exercise,
-      name: '',
-      bodypart: '',
-      sets: '',
-      reps: '',
-      weight: '',
-      comment: '',
-    });
+
+    setSelectedEx(selectedEx + 1);
+  };
+
+  const onPrevious = () => {
+    if (selectedEx > 0) return setSelectedEx(selectedEx - 1);
+  };
+
+  const onNext = () => {
+    if (selectedEx < exercises.length - 1) return setSelectedEx(selectedEx + 1);
+  };
+
+  const onExChange = e => {
+    const copy = exercises.slice();
+    copy[selectedEx][e.target.name] = e.target.value;
+    setExercises(copy);
   };
 
   return (
@@ -87,21 +91,25 @@ const CreateWorkout = ({ createWorkout, history }) => {
           />
         </div>
         <h2 className="text-primary">List Exercises</h2>
-
-        {exercises.length > 0 && (<h3>Number of exercises in list: <span className="text-primary">{exercises.length}</span></h3>)}
+        {exercises && exercises.length > 0 && (
+        <div className="buttons">
+          <div onClick={() => onPrevious()} className="btn btn-light">Previous</div>
+          <div onClick={() => onNext()} className="btn btn-light">Next</div>
+        </div>
+        )}
 
         <div className="form-group">
           <input
             type="text"
             placeholder="Name"
-            value={name}
-            onChange={e => setExercise({ ...exercise, [e.target.name]: e.target.value })}
+            value={!exercises[selectedEx] && !exercises[selectedEx].name ? '' : exercises[selectedEx].name}
+            onChange={e => onExChange(e)}
             name="name"
             minLength="1"
           />
         </div>
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <input
             type="text"
             placeholder="Body Part"
@@ -154,7 +162,7 @@ const CreateWorkout = ({ createWorkout, history }) => {
             name="comment"
             minLength="1"
           />
-        </div>
+        </div> */}
 
         <div className="btn btn-primary" onClick={e => onAddExercise(e)}>Add another exercise</div>
 

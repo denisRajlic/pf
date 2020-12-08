@@ -31,7 +31,7 @@ const EditWorkout = ({
     });
 
     if (workout && workout.exercises) setExercises(workout.exercises);
-  }, [loading, workout, exercises, selectedEx]);
+  }, [loading, workout]);
 
   const { title, isPublic } = currentWorkout;
 
