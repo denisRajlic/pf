@@ -18,6 +18,25 @@ router.post('/', [auth, [
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
   try {
+    let workout = await Workout.findOne({ _id: req.body._id });
+
+    if (workout) {
+      // Update
+      workout = await Workout.findOneAndUpdate(
+        { _id: req.body._id },
+        {
+          $set: {
+            title: req.body.title,
+            exercises: req.body.exercises,
+            isPublic: req.body.isPublic,
+          },
+        },
+        { new: true },
+      );
+
+      return res.json(workout);
+    }
+
     const newWorkout = new Workout({
       title: req.body.title,
       exercises: req.body.exercises,
@@ -25,7 +44,7 @@ router.post('/', [auth, [
       user: req.user.id,
     });
 
-    const workout = await newWorkout.save();
+    workout = await newWorkout.save();
 
     res.json(workout);
   } catch (err) {
@@ -40,6 +59,20 @@ router.post('/', [auth, [
 router.get('/', auth, async (req, res) => {
   try {
     const workout = await Workout.find({ user: req.user.id }).sort({ date: -1 }).populate('user', ['name'], User);
+    if (!workout) return res.json({ msg: 'Workout not found' });
+    return res.json(workout);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route     GET api/workouts/:id
+// @desc      Get workout by id
+// @acess     Private
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const workout = await Workout.findById(req.params.id).populate('user', ['name'], User);
     if (!workout) return res.json({ msg: 'Workout not found' });
     return res.json(workout);
   } catch (err) {

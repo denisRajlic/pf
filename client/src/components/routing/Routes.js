@@ -6,6 +6,7 @@ import Login from '../auth/Login';
 import Alert from '../layout/Alert';
 import Workouts from '../workouts/Workouts';
 import CreateWorkout from '../workouts/CreateWorkout';
+import EditWorkout from '../workouts/EditWorkout';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -17,6 +18,7 @@ const Routes = () => (
       <Route exact path="/login" component={Login} />
       <PrivateRoute exact path="/workouts" component={Workouts} />
       <PrivateRoute exact path="/create-workout" component={CreateWorkout} />
+      <PrivateRoute exact path="/edit-workout/:id" component={EditWorkout} />
     </Switch>
   </section>
 );

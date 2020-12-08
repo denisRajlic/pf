@@ -6,6 +6,7 @@ import {
   WORKOUT_ERROR,
   GET_WORKOUTS,
   DELETE_WORKOUT,
+  GET_WORKOUT,
 } from './types';
 
 // Create workout
@@ -13,6 +14,8 @@ export const createWorkout = ({
   title,
   isPublic,
   exercises,
+  _id = null,
+  edit = false,
 }) => async dispatch => {
   const config = {
     headers: {
@@ -20,12 +23,14 @@ export const createWorkout = ({
     },
   };
 
-  const body = JSON.stringify({ title, isPublic, exercises });
+  const body = JSON.stringify({
+    title, isPublic, exercises, _id,
+  });
 
   try {
     const res = await axios.post('/api/workouts', body, config);
 
-    dispatch(setAlert('Workout Created', 'success'));
+    dispatch(setAlert(edit ? 'Workout Updated' : 'Workout Created', 'success'));
 
     dispatch({
       type: CREATE_WORKOUT,
@@ -76,5 +81,22 @@ export const deleteWorkout = id => async dispatch => {
         payload: { msg: err.response.statusText, status: err.response.status },
       });
     }
+  }
+};
+
+// Get Workout
+export const getWorkout = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/workouts/${id}`);
+
+    dispatch({
+      type: GET_WORKOUT,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: WORKOUT_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
   }
 };
