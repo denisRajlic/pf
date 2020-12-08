@@ -2,6 +2,7 @@ import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getWorkout, createWorkout } from '../../actions/workout';
+import setAlert from '../../actions/alert';
 
 import Spinner from '../layout/Spinner';
 
@@ -10,6 +11,7 @@ const EditWorkout = ({
   workout: { workout, loading },
   getWorkout,
   createWorkout,
+  setAlert,
 }) => {
   const [selectedEx, setSelectedEx] = useState(0);
 
@@ -17,6 +19,15 @@ const EditWorkout = ({
     title: '',
     isPublic: false,
   });
+
+  const initialState = {
+    name: '',
+    bodypart: '',
+    sets: '',
+    reps: '',
+    weight: '',
+    comment: '',
+  };
 
   const [exercises, setExercises] = useState([]);
 
@@ -44,17 +55,13 @@ const EditWorkout = ({
     });
   };
 
-  const onPrevious = () => {
-    if (selectedEx > 0) return setSelectedEx(selectedEx - 1);
-  };
+  const onPrevious = () => { if (selectedEx > 0) return setSelectedEx(selectedEx - 1); };
 
   const onNext = () => {
     if (selectedEx < exercises.length - 1) return setSelectedEx(selectedEx + 1);
   };
 
-  const onChange = e => {
-    setWorkout({ ...currentWorkout, [e.target.name]: e.target.value });
-  };
+  const onChange = e => { setWorkout({ ...currentWorkout, [e.target.name]: e.target.value }); };
 
   const onExChange = e => {
     const copy = exercises.slice();
@@ -62,8 +69,19 @@ const EditWorkout = ({
     setExercises(copy);
   };
 
-  const onClick = () => {
-    setWorkout({ ...currentWorkout, isPublic: !isPublic });
+  const onAddExercise = () => {
+    if (exercises[exercises.length - 1].name === '') return (setAlert('Exercise must have a name', 'danger'));
+    setSelectedEx(exercises.length);
+    setExercises([...exercises, initialState]);
+  };
+
+  const onClick = () => { setWorkout({ ...currentWorkout, isPublic: !isPublic }); };
+
+  const onRemoveEx = () => {
+    const copy = exercises.slice(); // Copy array
+    copy.splice(selectedEx, 1);
+    if (selectedEx > 0) setSelectedEx(selectedEx - 1);
+    setExercises(copy);
   };
 
   return loading ? <Spinner /> : (
@@ -86,6 +104,9 @@ const EditWorkout = ({
         <div className="buttons">
           <div onClick={() => onPrevious()} className="btn btn-light">Previous</div>
           <div onClick={() => onNext()} className="btn btn-light">Next</div>
+          {exercises.length > 1 && (
+            <div onClick={() => onRemoveEx()} className="btn btn-danger">Remove Exercise</div>
+          )}
         </div>
 
         <h3 className="text-primary">Name</h3>
@@ -160,8 +181,10 @@ const EditWorkout = ({
           />
         </div>
 
+        <div className="btn btn-primary" onClick={e => onAddExercise(e)}>Add another exercise</div>
+
         <div className="form-group">
-          <label htmlFor="isPublic">Make Workout Public?{' '}
+          <label htmlFor="isPublic" className="text-primary">Public?{' '}
             <input
               type="checkbox"
               checked={isPublic}
@@ -171,7 +194,7 @@ const EditWorkout = ({
           </label>
         </div>
 
-        <input type="submit" className="btn btn-primary" value="Submit" />
+        <input type="submit" className="btn btn-primary" value="Update" />
       </form>
     </>
   );
@@ -182,10 +205,11 @@ EditWorkout.propTypes = {
   getWorkout: PropTypes.func.isRequired,
   workout: PropTypes.object.isRequired,
   createWorkout: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   workout: state.workout,
 });
 
-export default connect(mapStateToProps, { getWorkout, createWorkout })(EditWorkout);
+export default connect(mapStateToProps, { getWorkout, createWorkout, setAlert })(EditWorkout);

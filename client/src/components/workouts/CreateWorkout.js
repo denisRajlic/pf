@@ -5,9 +5,10 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import setAlert from '../../actions/alert';
 import { createWorkout } from '../../actions/workout';
 
-const CreateWorkout = ({ createWorkout, history }) => {
+const CreateWorkout = ({ createWorkout, history, setAlert }) => {
   const [selectedEx, setSelectedEx] = useState(0);
 
   const [state, setState] = useState({
@@ -41,8 +42,9 @@ const CreateWorkout = ({ createWorkout, history }) => {
   const onChange = e => setState({ ...state, [e.target.name]: e.target.value });
 
   const onAddExercise = () => {
+    if (exercises[exercises.length - 1].name === '') return (setAlert('Exercise must have a name', 'danger'));
+    setSelectedEx(exercises.length);
     setExercises([...exercises, initialState]);
-    setSelectedEx(selectedEx + 1);
   };
 
   const onPrevious = () => { if (selectedEx > 0) return setSelectedEx(selectedEx - 1); };
@@ -61,7 +63,6 @@ const CreateWorkout = ({ createWorkout, history }) => {
     const copy = exercises.slice(); // Copy array
     copy.splice(selectedEx, 1);
     if (selectedEx > 0) setSelectedEx(selectedEx - 1);
-    else (setSelectedEx(copy.length - 1));
     setExercises(copy);
   };
 
@@ -170,7 +171,7 @@ const CreateWorkout = ({ createWorkout, history }) => {
             />
           </label>
         </div>
-        <input type="submit" className="btn btn-primary" value="Submit" />
+        <input type="submit" className="btn btn-primary" value="Create" />
       </form>
     </>
 
@@ -180,6 +181,7 @@ const CreateWorkout = ({ createWorkout, history }) => {
 CreateWorkout.propTypes = {
   createWorkout: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
+  setAlert: PropTypes.func.isRequired,
 };
 
-export default connect(null, { createWorkout })(withRouter(CreateWorkout));
+export default connect(null, { createWorkout, setAlert })(withRouter(CreateWorkout));
