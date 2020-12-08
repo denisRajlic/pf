@@ -62,6 +62,10 @@ const EditWorkout = ({
     setExercises(copy);
   };
 
+  const onClick = () => {
+    setWorkout({ ...currentWorkout, isPublic: !isPublic });
+  };
+
   return loading ? <Spinner /> : (
     <>
       <h1 className="text-primary text-center">Edit Workout</h1>
@@ -161,7 +165,7 @@ const EditWorkout = ({
             <input
               type="checkbox"
               checked={isPublic}
-              onChange={e => onChange(e)}
+              onChange={() => onClick()}
               name="isPublic"
             />
           </label>

@@ -24,20 +24,9 @@ const CreateWorkout = ({ createWorkout, history }) => {
     comment: '',
   };
 
-  const [exercises, setExercises] = useState([
-    {
-      name: '',
-      bodypart: '',
-      sets: '',
-      reps: '',
-      weight: '',
-      comment: '',
-    },
-  ]);
+  const [exercises, setExercises] = useState([initialState]);
 
-  const {
-    title, isPublic,
-  } = state;
+  const { title, isPublic } = state;
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -52,25 +41,27 @@ const CreateWorkout = ({ createWorkout, history }) => {
   const onChange = e => setState({ ...state, [e.target.name]: e.target.value });
 
   const onAddExercise = () => {
-    setExercises([
-      ...exercises,
-      initialState,
-    ]);
-
+    setExercises([...exercises, initialState]);
     setSelectedEx(selectedEx + 1);
   };
 
-  const onPrevious = () => {
-    if (selectedEx > 0) return setSelectedEx(selectedEx - 1);
-  };
+  const onPrevious = () => { if (selectedEx > 0) return setSelectedEx(selectedEx - 1); };
 
   const onNext = () => {
     if (selectedEx < exercises.length - 1) return setSelectedEx(selectedEx + 1);
   };
 
   const onExChange = e => {
-    const copy = exercises.slice();
+    const copy = exercises.slice(); // Copy array
     copy[selectedEx][e.target.name] = e.target.value;
+    setExercises(copy);
+  };
+
+  const onRemoveEx = () => {
+    const copy = exercises.slice(); // Copy array
+    copy.splice(selectedEx, 1);
+    if (selectedEx > 0) setSelectedEx(selectedEx - 1);
+    else (setSelectedEx(copy.length - 1));
     setExercises(copy);
   };
 
@@ -95,6 +86,9 @@ const CreateWorkout = ({ createWorkout, history }) => {
         <div className="buttons">
           <div onClick={() => onPrevious()} className="btn btn-light">Previous</div>
           <div onClick={() => onNext()} className="btn btn-light">Next</div>
+          {exercises.length > 1 && (
+            <div onClick={() => onRemoveEx()} className="btn btn-danger">Remove Exercise</div>
+          )}
         </div>
         )}
 

@@ -9,15 +9,18 @@ import Spinner from '../layout/Spinner';
 
 const Workouts = ({
   auth: { user },
-  workout: { workouts, loading },
+  workout: { workouts, workout, loading },
   loadUser,
   getWorkouts,
   deleteWorkout,
 }) => {
   useEffect(() => {
     loadUser();
+  }, [loadUser]);
+
+  useEffect(() => {
     getWorkouts();
-  }, [loadUser, getWorkouts]);
+  }, [getWorkouts, workout]);
 
   return loading ? (
     <Spinner />
