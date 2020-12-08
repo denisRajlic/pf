@@ -57,10 +57,9 @@ const EditWorkout = ({
   };
 
   const onExChange = e => {
-    setExercises([
-      ...exercises,
-      exercises[selectedEx][e.target.name] = e.target.value,
-    ]);
+    const copy = exercises.slice();
+    copy[selectedEx][e.target.name] = e.target.value;
+    setExercises(copy);
   };
 
   return loading ? <Spinner /> : (

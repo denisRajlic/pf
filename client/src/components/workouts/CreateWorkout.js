@@ -109,12 +109,12 @@ const CreateWorkout = ({ createWorkout, history }) => {
           />
         </div>
 
-        {/* <div className="form-group">
+        <div className="form-group">
           <input
             type="text"
             placeholder="Body Part"
-            value={bodypart}
-            onChange={e => setExercise({ ...exercise, [e.target.name]: e.target.value })}
+            value={!exercises[selectedEx] && !exercises[selectedEx].bodypart ? '' : exercises[selectedEx].bodypart}
+            onChange={e => onExChange(e)}
             name="bodypart"
             minLength="1"
           />
@@ -124,8 +124,8 @@ const CreateWorkout = ({ createWorkout, history }) => {
           <input
             type="text"
             placeholder="Sets"
-            value={sets}
-            onChange={e => setExercise({ ...exercise, [e.target.name]: e.target.value })}
+            value={!exercises[selectedEx] && !exercises[selectedEx].sets ? '' : exercises[selectedEx].sets}
+            onChange={e => onExChange(e)}
             name="sets"
             minLength="1"
           />
@@ -135,8 +135,8 @@ const CreateWorkout = ({ createWorkout, history }) => {
           <input
             type="text"
             placeholder="Reps"
-            value={reps}
-            onChange={e => setExercise({ ...exercise, [e.target.name]: e.target.value })}
+            value={!exercises[selectedEx] && !exercises[selectedEx].reps ? '' : exercises[selectedEx].reps}
+            onChange={e => onExChange(e)}
             name="reps"
             minLength="1"
           />
@@ -146,8 +146,8 @@ const CreateWorkout = ({ createWorkout, history }) => {
           <input
             type="text"
             placeholder="Weight"
-            value={weight}
-            onChange={e => setExercise({ ...exercise, [e.target.name]: e.target.value })}
+            value={!exercises[selectedEx] && !exercises[selectedEx].weight ? '' : exercises[selectedEx].weight}
+            onChange={e => onExChange(e)}
             name="weight"
             minLength="1"
           />
@@ -157,12 +157,12 @@ const CreateWorkout = ({ createWorkout, history }) => {
           <input
             type="text"
             placeholder="Comment"
-            value={comment}
-            onChange={e => setExercise({ ...exercise, [e.target.name]: e.target.value })}
+            value={!exercises[selectedEx] && !exercises[selectedEx].comment ? '' : exercises[selectedEx].comment}
+            onChange={e => onExChange(e)}
             name="comment"
             minLength="1"
           />
-        </div> */}
+        </div>
 
         <div className="btn btn-primary" onClick={e => onAddExercise(e)}>Add another exercise</div>
 
