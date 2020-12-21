@@ -1,7 +1,7 @@
 import React, {
   useState, Fragment,
 } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -60,10 +60,12 @@ const CreateWorkout = ({ createWorkout, history, setAlert }) => {
   };
 
   const onRemoveEx = () => {
-    const copy = exercises.slice(); // Copy array
-    copy.splice(selectedEx, 1);
-    if (selectedEx > 0) setSelectedEx(selectedEx - 1);
-    setExercises(copy);
+    if (window.confirm('Are you sure you want to delete this exercise?')) {
+      const copy = exercises.slice(); // Copy array
+      copy.splice(selectedEx, 1);
+      if (selectedEx > 0) setSelectedEx(selectedEx - 1);
+      setExercises(copy);
+    }
   };
 
   return (
@@ -101,6 +103,7 @@ const CreateWorkout = ({ createWorkout, history, setAlert }) => {
             onChange={e => onExChange(e)}
             name="name"
             minLength="1"
+            required
           />
         </div>
 
@@ -171,7 +174,10 @@ const CreateWorkout = ({ createWorkout, history, setAlert }) => {
             />
           </label>
         </div>
-        <input type="submit" className="btn btn-primary" value="Create" />
+        <div className="buttons">
+          <input type="submit" className="btn btn-primary" value="Create" />
+          <Link to="/workouts" className="btn btn-secondary">Go Back</Link>
+        </div>
       </form>
     </>
 

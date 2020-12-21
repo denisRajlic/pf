@@ -7,7 +7,7 @@ const User = require('../../models/User');
 const Workout = require('../../models/Workout');
 
 // @route     POST api/workouts
-// @desc      Create a workout
+// @desc      Create or update a workout
 // @acess     Private
 router.post('/', [auth, [
   check('title', 'Workout title required').not().isEmpty(),
@@ -21,6 +21,9 @@ router.post('/', [auth, [
     let workout = await Workout.findOne({ _id: req.body._id });
 
     if (workout) {
+      // Check if user is authorized for this action
+      if (workout.user.toString() !== req.user.id) return res.status(401).json({ msg: 'User not authorized' });
+
       // Update
       workout = await Workout.findOneAndUpdate(
         { _id: req.body._id },

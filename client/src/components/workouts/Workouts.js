@@ -26,31 +26,45 @@ const Workouts = ({
     <Spinner />
   ) : (
     <div>
-      <h1>Hello{' '}{user && user.name}!</h1>
-      {workouts && workouts.length > 0
-        ? (<h2>Here Are Your Workouts!</h2>)
-        : (<h2>No Workouts Yet...Create Your First One Now!</h2>)}
-      <Link to="/create-workout" className="btn btn-primary">Create New Workout</Link>
+      {user && user.name && workouts && workouts.length > 0
+        ? (
+          <>
+            <h2 className="large text-primary">Hi, {user.name}! Here Are Your Workouts!</h2>
+            <Link to="/create-workout" className="btn btn-primary">Create New Workout</Link>
+          </>
+        )
+        : (
+          <>
+            <h2 className="large text-primary">No Workouts Yet...Create Your First One Now!</h2>
+            <div className="page-center">
+              <Link to="/create-workout" className="btn btn-primary btn-large">Create Your First Workout</Link>
+            </div>
+          </>
+        )}
       {workouts && workouts.map((workout, index) => (
         <Fragment key={index}>
           <div className="workout">
-            <h2 className="text-primary">{workout.title}</h2>
-            {workout.exercises.map((exercise, index) => {
-              const {
-                name, bodypart, reps, sets, weight, comment,
-              } = exercise;
-              return (
-                <Fragment key={index}>
-                  <h3 className="text-primary">Exercise {index + 1}:</h3>
-                  <h4>Name: {name}</h4>
-                  <h4>Bodypart: {bodypart}</h4>
-                  <h4>Sets: {sets}</h4>
-                  <h4>Reps: {reps}</h4>
-                  <h4>Weight: {weight}</h4>
-                  <h4>Comment: {comment}</h4>
-                </Fragment>
-              );
-            })}
+            <h2 className="large text-primary">{workout.title}</h2>
+            <div className="workout-grid">
+              {workout.exercises.map((exercise, index) => {
+                const {
+                  name, bodypart, reps, sets, weight, comment,
+                } = exercise;
+                return (
+                  <Fragment key={index}>
+                    <div className="workout-item">
+                      {/* <h3 className="text-primary">Exercise {index + 1}:</h3> */}
+                      <h2>{name.toUpperCase()}</h2>
+                      <h3><span className="text-third">Bodypart</span> - {bodypart}</h3>
+                      <h3><span className="text-third">Sets</span> - {sets}</h3>
+                      <h3><span className="text-third">Reps</span> - {reps}</h3>
+                      <h3><span className="text-third">Weight</span> - {weight}</h3>
+                      <h3><span className="text-third">Comment</span> - {comment}</h3>
+                    </div>
+                  </Fragment>
+                );
+              })}
+            </div>
             <div className="buttons">
               <Link to={`/edit-workout/${workout._id}`} className="btn btn-primary">Edit</Link>
               <div className="btn btn-danger" onClick={() => deleteWorkout(workout._id)}>

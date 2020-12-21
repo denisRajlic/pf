@@ -1,5 +1,6 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getWorkout, createWorkout } from '../../actions/workout';
 import setAlert from '../../actions/alert';
@@ -78,10 +79,12 @@ const EditWorkout = ({
   const onClick = () => { setWorkout({ ...currentWorkout, isPublic: !isPublic }); };
 
   const onRemoveEx = () => {
-    const copy = exercises.slice(); // Copy array
-    copy.splice(selectedEx, 1);
-    if (selectedEx > 0) setSelectedEx(selectedEx - 1);
-    setExercises(copy);
+    if (window.confirm('Are you sure you want to delete this exercise?')) {
+      const copy = exercises.slice(); // Copy array
+      copy.splice(selectedEx, 1);
+      if (selectedEx > 0) setSelectedEx(selectedEx - 1);
+      setExercises(copy);
+    }
   };
 
   return loading ? <Spinner /> : (
@@ -127,7 +130,7 @@ const EditWorkout = ({
             type="text"
             placeholder="Body part"
             value={!exercises[selectedEx] ? '' : exercises[selectedEx].bodypart}
-            onChange={() => console.log('change')}
+            onChange={e => onExChange(e)}
             name="bodypart"
             minLength="1"
           />
@@ -139,7 +142,7 @@ const EditWorkout = ({
             type="text"
             placeholder="Sets"
             value={!exercises[selectedEx] ? '' : exercises[selectedEx].sets}
-            onChange={() => console.log('change')}
+            onChange={e => onExChange(e)}
             name="sets"
             minLength="1"
           />
@@ -151,7 +154,7 @@ const EditWorkout = ({
             type="text"
             placeholder="Reps"
             value={!exercises[selectedEx] ? '' : exercises[selectedEx].reps}
-            onChange={() => console.log('change')}
+            onChange={e => onExChange(e)}
             name="reps"
             minLength="1"
           />
@@ -163,7 +166,7 @@ const EditWorkout = ({
             type="text"
             placeholder="Weight"
             value={!exercises[selectedEx] ? '' : exercises[selectedEx].weight}
-            onChange={() => console.log('change')}
+            onChange={e => onExChange(e)}
             name="weight"
             minLength="1"
           />
@@ -175,7 +178,7 @@ const EditWorkout = ({
             type="text"
             placeholder="Comment"
             value={!exercises[selectedEx] ? '' : exercises[selectedEx].comment}
-            onChange={() => console.log('change')}
+            onChange={e => onExChange(e)}
             name="comment"
             minLength="1"
           />
@@ -193,8 +196,10 @@ const EditWorkout = ({
             />
           </label>
         </div>
-
-        <input type="submit" className="btn btn-primary" value="Update" />
+        <div className="buttons">
+          <input type="submit" className="btn btn-primary" value="Update" />
+          <Link to="/workouts" className="btn btn-secondary">Go Back</Link>
+        </div>
       </form>
     </>
   );
