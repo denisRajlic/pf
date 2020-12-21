@@ -32,3 +32,4 @@ We took it upons ourselves, to create an app, that users would actually want to 
 - Email veritfication
 - Adding calories burnt to workouts
 - Users profile page
+- Public Workouts Dashboard

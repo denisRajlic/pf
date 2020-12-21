@@ -626,4 +626,9 @@ button {
   .workout-grid {
     grid-template-columns: 1fr;
   }
+
+  /* Buttons */
+  .buttons {
+    text-align: center;
+  }
 }
