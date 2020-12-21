@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { api } from '../store';
 import setAlert from './alert';
 import {
   CREATE_WORKOUT,
@@ -17,18 +17,12 @@ export const createWorkout = ({
   _id = null,
   edit = false,
 }) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
+  const body = {
+    title, isPublic, exercises, _id,
   };
 
-  const body = JSON.stringify({
-    title, isPublic, exercises, _id,
-  });
-
   try {
-    const res = await axios.post('/api/workouts', body, config);
+    const res = await api.post('/workouts', body);
 
     dispatch(setAlert(edit ? 'Workout Updated' : 'Workout Created', 'success'));
 
@@ -50,7 +44,7 @@ export const createWorkout = ({
 // Get workouts by user ID
 export const getWorkouts = () => async dispatch => {
   try {
-    const res = await axios.get('/api/workouts');
+    const res = await api.get('/workouts');
 
     dispatch({
       type: GET_WORKOUTS,
@@ -68,7 +62,7 @@ export const getWorkouts = () => async dispatch => {
 export const deleteWorkout = id => async dispatch => {
   if (window.confirm('Are you sure you want to delete this workout?')) {
     try {
-      await axios.delete(`/api/workouts/${id}`);
+      await api.delete(`/workouts/${id}`);
       dispatch({
         type: DELETE_WORKOUT,
         payload: id,
@@ -87,7 +81,7 @@ export const deleteWorkout = id => async dispatch => {
 // Get Workout
 export const getWorkout = id => async dispatch => {
   try {
-    const res = await axios.get(`/api/workouts/${id}`);
+    const res = await api.get(`/workouts/${id}`);
 
     dispatch({
       type: GET_WORKOUT,

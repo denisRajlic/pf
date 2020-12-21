@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadUser } from '../../actions/auth';
 import { getWorkouts, deleteWorkout } from '../../actions/workout';
+import formatDate from '../../utils/formatDate';
+import { setAuthToken } from '../../store';
 
 import Spinner from '../layout/Spinner';
 
@@ -15,6 +17,7 @@ const Workouts = ({
   deleteWorkout,
 }) => {
   useEffect(() => {
+    if (localStorage.token) setAuthToken(localStorage.token);
     loadUser();
   }, [loadUser]);
 
@@ -48,7 +51,7 @@ const Workouts = ({
             <div className="workout-grid">
               {workout.exercises.map((exercise, index) => {
                 const {
-                  name, bodypart, reps, sets, weight, comment,
+                  name, bodypart, reps, sets, weight, comment, date,
                 } = exercise;
                 return (
                   <Fragment key={index}>
@@ -60,6 +63,8 @@ const Workouts = ({
                       <h3><span className="text-third">Reps</span> - {reps}</h3>
                       <h3><span className="text-third">Weight</span> - {weight}</h3>
                       <h3><span className="text-third">Comment</span> - {comment}</h3>
+                      <h3><span className="text-third">Date</span> - {formatDate(date)}</h3>
+
                     </div>
                   </Fragment>
                 );

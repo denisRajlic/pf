@@ -121,6 +121,7 @@ const EditWorkout = ({
             onChange={e => onExChange(e)}
             name="name"
             minLength="1"
+            required
           />
         </div>
 
