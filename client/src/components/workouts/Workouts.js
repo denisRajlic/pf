@@ -32,8 +32,10 @@ const Workouts = ({
       {user && user.name && workouts && workouts.length > 0
         ? (
           <>
-            <h2 className="large text-primary">Hi, {user.name}! Here Are Your Workouts!</h2>
-            <Link to="/create-workout" className="btn btn-primary">Create New Workout</Link>
+            <h2 className="large text-primary">Here's Your Workout List</h2>
+            <div className="center-on-small">
+              <Link to="/create-workout" className="btn btn-primary">Create New Workout</Link>
+            </div>
           </>
         )
         : (

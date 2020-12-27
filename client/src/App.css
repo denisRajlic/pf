@@ -631,4 +631,8 @@ button {
   .buttons {
     text-align: center;
   }
+
+  .center-on-small {
+    text-align: center;
+  }
 }

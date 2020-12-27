@@ -4,9 +4,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   const authLinks = (
     <ul>
+      {user && user.name && (
+        <li><Link to="/profile">{user.name}</Link></li>
+      )}
       <li><Link to="/workouts">Workouts</Link></li>
       <li><Link to="/create-workout">Create Workout</Link></li>
       <li>
