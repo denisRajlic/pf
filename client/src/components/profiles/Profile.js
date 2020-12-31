@@ -1,12 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { getProfile } from '../../actions/profile';
+import Spinner from '../layout/Spinner';
 
+const Profile = ({ getProfile, profile: { profile, loading } }) => {
+  useEffect(() => {
+    getProfile();
+  },[getProfile]);
 
-const Profile = props => {
-  return (
-    <>
+  return loading && profile === null ? <Spinner /> : 
+    <Fragment>
       <div className="profile-logo-container">
         <div className="profile-logo">
           <div className="profile-logo-text">DR</div>
@@ -36,12 +41,17 @@ const Profile = props => {
           <Link to="/workouts">View All Workouts</Link>
         </div>
       </section>
-    </>
-  );
+    </Fragment>;
+
 };
 
-// Profile.propTypes = {
+Profile.propTypes = {
+  getProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
+};
 
-// };
+const mapStateToProps = state => ({
+  profile: state.profile,
+});
 
-export default connect()(Profile);
+export default connect(mapStateToProps, { getProfile })(Profile);
