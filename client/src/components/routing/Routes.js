@@ -7,6 +7,7 @@ import Alert from '../layout/Alert';
 import Workouts from '../workouts/Workouts';
 import CreateWorkout from '../workouts/CreateWorkout';
 import EditWorkout from '../workouts/EditWorkout';
+import Profile from '../profiles/Profile';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -19,6 +20,7 @@ const Routes = () => (
       <PrivateRoute exact path="/workouts" component={Workouts} />
       <PrivateRoute exact path="/create-workout" component={CreateWorkout} />
       <PrivateRoute exact path="/edit-workout/:id" component={EditWorkout} />
+      <PrivateRoute exact path="/profile" component={Profile} />
     </Switch>
   </section>
 );
