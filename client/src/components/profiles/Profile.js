@@ -1,57 +1,116 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getProfile } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
+import { loadUser } from '../../actions/auth';
+import { getWorkouts } from '../../actions/workout';
+import { setAuthToken } from '../../store';
 
-const Profile = ({ getProfile, profile: { profile, loading } }) => {
+const Profile = ({
+  getProfile,
+  loadUser,
+  getWorkouts,
+  profile: { profile, loading },
+  workout: { workouts },
+}) => {
   useEffect(() => {
+    if (localStorage.token) setAuthToken(localStorage.token);
+    loadUser();
     getProfile();
-  },[getProfile]);
+    getWorkouts();
+  }, [loadUser, getProfile, getWorkouts]);
 
-  return loading && profile === null ? <Spinner /> : 
+  const [initialProfile, setProfile] = useState({
+    birthDate: '',
+    weight: '',
+    height: '',
+    user: '',
+    gender: '',
+  });
+
+  useEffect(() => {
+    if (profile)
+      setProfile({
+        birthDate: profile.birthDate ? profile.birthDate : '',
+        weight: profile.weight ? profile.weight : '',
+        height: profile.height ? profile.height : '',
+        user: profile.user ? profile.user : '',
+        gender: profile.gender ? profile.gender : '',
+      });
+  }, [profile]);
+
+  const { birthDate, weight, height, gender, user } = initialProfile;
+
+  const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10).toString();
+
+  return loading && profile === null ? <Spinner /> :
     <Fragment>
-      <div className="profile-logo-container">
-        <div className="profile-logo">
-          <div className="profile-logo-text">DR</div>
+      {profile === null ? (
+        <>
+          <p>You have not yet setup a profile, please add some info</p>
+          <Link to='/create-profile' className="btn btn-primary my-1">Create Profile</Link>
+        </>
+      ) : (
+        <>
+          <div className="profile-logo-container">
+          <div className="profile-logo">
+            {user && user.name && (
+              <div className="profile-logo-text">{user.name[0].concat(user.surname[0])}</div>
+            )}
+          </div>
         </div>
-      </div>
 
-      <section className="profile-info">
-        <h2>Age</h2>
-        <h2>Weight</h2>
-        <h2>Height</h2>
-        <h2>Gender</h2>
+        <section className="profile-info">
+          <h2>Age</h2>
+          <h2>Weight</h2>
+          <h2>Height</h2>
+          <h2>Gender</h2>
 
-        <p>22</p>
-        <p>85kg</p>
-        <p>176cm</p>
-        <p>Male</p>
-      </section>
+          <p>{getAge(birthDate)}</p>
+          <p>{weight}</p>
+          <p>{height}</p>
+          <p>{gender}</p>
+        </section>
 
-      <section className="profile-workouts">
-        <h1 className="large text-primary text-center">Your Latest Workouts</h1>
-        <div className="profile-workouts-container">
-          <div className="profile-workout-card">PPL</div>
-          <div className="profile-workout-card">Full Body</div>
-          <div className="profile-workout-card">P90X</div>
-        </div>
-        <div className="text-center">
-          <Link to="/workouts">View All Workouts</Link>
-        </div>
-      </section>
+        <section className="profile-workouts">
+          <h1 className="large text-primary text-center">Your Latest Workouts</h1>
+          <div className="profile-workouts-container">
+            {workouts.slice(0, 3).map(workout => (
+              <div key={workout._id} className="profile-workout-card">
+              {
+                workout.title.length > 7 ?
+                  workout.title.slice(0, 7).concat('...')
+                :
+                  workout.title
+              }
+              </div>
+              ))
+            }
+          </div>
+          <div className="text-center">
+            <Link to="/workouts">View All Workouts</Link>
+          </div>
+        </section>
+        </>
+      )}
+
     </Fragment>;
 
 };
 
 Profile.propTypes = {
   getProfile: PropTypes.func.isRequired,
+  getWorkouts: PropTypes.func.isRequired,
+  loadUser: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
+  workout: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   profile: state.profile,
+  workout: state.workout,
 });
 
-export default connect(mapStateToProps, { getProfile })(Profile);
+export default connect(mapStateToProps, { loadUser, getProfile, getWorkouts })(Profile);

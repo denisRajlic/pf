@@ -10,7 +10,7 @@ const Profile = require('../../models/Profile');
 // @acess     Private
 router.get('/', auth, async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.user.id }).populate('user', ['name'], User);
+    const profile = await Profile.findOne({ user: req.user.id }).populate('user', ['name', 'surname'], User);
     if (!profile) return res.status(400).json({ msg: 'Profile not found' });
     return res.json(profile);
   } catch (err) {

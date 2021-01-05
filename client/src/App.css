@@ -6,7 +6,7 @@
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
-  
+  --colNum: 3;
 }
 
 * {
@@ -434,7 +434,7 @@ button {
 
 .profile-workouts-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(var(--colNum), 1fr);
   justify-items: center;
   height: 30vh;
 }
@@ -450,6 +450,8 @@ button {
   font-size: 2rem;
   font-weight: bold;
   margin-top: 16px;
+  white-space: nowrap;
+  padding: 16px;
 }
 
 /* Mobile Styles */
