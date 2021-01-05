@@ -71,7 +71,7 @@ const CreateWorkout = ({ createWorkout, history, setAlert }) => {
   return (
     <>
       <h1 className="text-primary text-center">Create Workout</h1>
-      
+
       <form className="form" onSubmit={e => onSubmit(e)}>
         <h2 className="text-primary">Title</h2>
         <div className="form-group">

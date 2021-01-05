@@ -17,4 +17,3 @@ export const WORKOUT_ERROR = 'WORKOUT_ERROR';
 export const DELETE_WORKOUT = 'DELETE_WORKOUT';
 export const GET_PROFILE = 'GET_PROFILE';
 export const PROFILE_ERROR = 'PROFILE_ERROR';
-
