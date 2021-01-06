@@ -20,7 +20,7 @@ const ProfileSchema = new mongoose.Schema({
     default: '/',
   },
   birthDate: {
-    type: Date,
+    type: String,
   },
   date: {
     type: Date,

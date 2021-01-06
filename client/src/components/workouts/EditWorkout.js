@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getWorkout, createWorkout } from '../../actions/workout';
+import { loadUser } from '../../actions/auth';
 import setAlert from '../../actions/alert';
 
 import Spinner from '../layout/Spinner';
@@ -13,6 +14,7 @@ const EditWorkout = ({
   getWorkout,
   createWorkout,
   setAlert,
+  loadUser,
 }) => {
   const [selectedEx, setSelectedEx] = useState(0);
 
@@ -33,8 +35,9 @@ const EditWorkout = ({
   const [exercises, setExercises] = useState([]);
 
   useEffect(() => {
+    loadUser();
     getWorkout(match.params.id);
-  }, [getWorkout, match]);
+  }, [loadUser, getWorkout, match]);
 
   useEffect(() => {
     setWorkout({
@@ -212,10 +215,11 @@ EditWorkout.propTypes = {
   workout: PropTypes.object.isRequired,
   createWorkout: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired,
+  loadUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   workout: state.workout,
 });
 
-export default connect(mapStateToProps, { getWorkout, createWorkout, setAlert })(EditWorkout);
+export default connect(mapStateToProps, { loadUser, getWorkout, createWorkout, setAlert })(EditWorkout);

@@ -74,6 +74,10 @@ const Profile = ({
           <p>{gender}</p>
         </section>
 
+        <div className="text-center my-2">
+          <Link to="/edit-profile" className="btn btn-primary">Edit Profile</Link>
+        </div>
+
         <section className="profile-workouts">
           <h1 className="large text-primary text-center">Your Latest Workouts</h1>
           <div className="profile-workouts-container">

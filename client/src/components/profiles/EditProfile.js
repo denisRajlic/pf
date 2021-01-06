@@ -1,10 +1,12 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
+import { getProfile } from '../../actions/profile';
+import { loadUser } from '../../actions/auth';
 
-const CreateProfile = ({ createProfile, stateProfile }) => {
+const EditProfile = ({ loadUser, createProfile, getProfile, stateProfile }) => {
   const [profile, setProfile] = useState({
     birthDate: '',
     weight: '',
@@ -12,31 +14,39 @@ const CreateProfile = ({ createProfile, stateProfile }) => {
     gender: '',
   });
 
+  useEffect(() => {
+    loadUser();
+    getProfile();
+  }, [loadUser, getProfile]);
+
+  useEffect(() => {
+    setProfile({
+      birthDate: stateProfile.loading || !stateProfile ? '' : stateProfile.profile.birthDate,
+      weight: stateProfile.loading || !stateProfile ? '' : stateProfile.profile.weight,
+      height: stateProfile.loading || !stateProfile ? '' : stateProfile.profile.height,
+      gender: stateProfile.loading || !stateProfile ? '' : stateProfile.profile.gender,
+    });
+  }, [stateProfile]);
+
   const { birthDate, weight, height, gender } = profile;
 
   const onChange = e => setProfile({ ...profile, [e.target.name]: e.target.value });
 
-  console.log(birthDate);
-
   const onSubmit = e => {
     e.preventDefault();
-    createProfile({ birthDate, weight, height, gender });
+    const edit = true;
+    createProfile({ birthDate, weight, height, gender, edit });
   };
-
-  // Redirect if profile already exists
-  if (stateProfile.profile) return <Redirect to="/profile" />;
 
   return (
     <>
       <h1 className="large text-primary">
-        Create Your Profile
+        Edit Your Profile
       </h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Let's get some information to track your progress
-      </p>
 
       <form className="form" onSubmit={e => onSubmit(e)}>
-        <h2 className="text-primary">Birth Date (mm-dd-yyyy)</h2>
+        <h2 className="text-primary">Birth Date</h2>
+        <p className="text-primary">(mm-dd-yyyy)</p>
         <div className="form-group">
           <input
             type="date"
@@ -82,21 +92,25 @@ const CreateProfile = ({ createProfile, stateProfile }) => {
           />
         </div>
 
-        <div className="buttons">
+        <div className="grid-on-small">
           <input type="submit" className="btn btn-primary" value="Create Profile" />
+          <Link to='/profile' className="btn btn-light">Back To Profile</Link>
         </div>
       </form>
     </>
   );
 };
 
-CreateProfile.propTypes = {
+EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   stateProfile: PropTypes.object.isRequired,
+  getProfile: PropTypes.func.isRequired,
+  loadUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   stateProfile: state.profile,
 });
 
-export default connect(mapStateToProps, { createProfile })(CreateProfile);
+
+export default connect(mapStateToProps, { createProfile, getProfile, loadUser })(EditProfile);

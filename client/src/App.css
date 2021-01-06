@@ -405,15 +405,13 @@ button {
 }
 
 .profile-logo-text {
-  position: absolute;
+  margin-top: 16px;
+  text-align: center;
   font-size: 100px;  
   color: #fff;
-  top: 15px;
-  left: 30px;
 }
 
 .profile-logo {
-  position: relative;
   width: 200px;
   height: 200px;
   border-radius: 50%;
@@ -430,7 +428,7 @@ button {
 }
 
 .profile-workouts {
-  margin-top: 100px;
+  margin-top: 60px;
 }
 
 .profile-workouts-container {

@@ -27,13 +27,14 @@ export const createProfile = ({
   weight,
   height,
   gender,
+  edit = false,
 }) => async dispatch => {
   const body = { birthDate, weight, height, gender };
 
   try {
     const res = await api.post('/profile', body);
 
-    dispatch(setAlert('Profile Created', 'success'));
+    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
 
     dispatch({
       type: GET_PROFILE,
