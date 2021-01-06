@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
 import { getProfile } from '../../actions/profile';
 import { loadUser } from '../../actions/auth';
+import { setAuthToken } from '../../store';
 
 const EditProfile = ({ loadUser, createProfile, getProfile, stateProfile }) => {
   const [profile, setProfile] = useState({
@@ -15,6 +16,7 @@ const EditProfile = ({ loadUser, createProfile, getProfile, stateProfile }) => {
   });
 
   useEffect(() => {
+    if (localStorage.token) setAuthToken(localStorage.token);
     loadUser();
     getProfile();
   }, [loadUser, getProfile]);

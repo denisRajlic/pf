@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getWorkout, createWorkout } from '../../actions/workout';
 import { loadUser } from '../../actions/auth';
 import setAlert from '../../actions/alert';
+import { setAuthToken } from '../../store';
 
 import Spinner from '../layout/Spinner';
 
@@ -35,6 +36,7 @@ const EditWorkout = ({
   const [exercises, setExercises] = useState([]);
 
   useEffect(() => {
+    if (localStorage.token) setAuthToken(localStorage.token);
     loadUser();
     getWorkout(match.params.id);
   }, [loadUser, getWorkout, match]);
