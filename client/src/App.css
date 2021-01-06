@@ -2,7 +2,8 @@
 :root {
   --primary-color: #155263;
   --dark-color: #1e3a42;
-  --third-color: #ff6f3c;
+  /* --third-color: #ff6f3c; */
+  --third-color: #db6772;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
@@ -503,7 +504,13 @@ button {
 
   /* Buttons */
   .buttons {
-    text-align: center;
+    text-align: center;    
+  }
+
+  .grid-on-small {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 
   .center-on-small {

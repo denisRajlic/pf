@@ -104,7 +104,7 @@ const EditWorkout = ({
           />
         </div>
         <h2 className="text-primary">Exercises</h2>
-        <div className="buttons">
+        <div className="grid-on-small">
           <div onClick={() => onPrevious()} className="btn btn-light">Previous</div>
           <div onClick={() => onNext()} className="btn btn-light">Next</div>
           {exercises.length > 1 && (
