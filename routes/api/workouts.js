@@ -40,6 +40,7 @@ router.post('/', [auth, [
       return res.json(workout);
     }
 
+    // Create
     const newWorkout = new Workout({
       title: req.body.title,
       exercises: req.body.exercises,

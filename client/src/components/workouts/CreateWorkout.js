@@ -86,7 +86,7 @@ const CreateWorkout = ({ createWorkout, history, setAlert }) => {
         </div>
         <h2 className="text-primary">List Exercises</h2>
         {exercises && exercises.length > 0 && (
-        <div className="buttons">
+        <div className="grid-on-small">
           <div onClick={() => onPrevious()} className="btn btn-light">Previous</div>
           <div onClick={() => onNext()} className="btn btn-light">Next</div>
           {exercises.length > 1 && (
@@ -180,7 +180,6 @@ const CreateWorkout = ({ createWorkout, history, setAlert }) => {
         </div>
       </form>
     </>
-
   );
 };
 

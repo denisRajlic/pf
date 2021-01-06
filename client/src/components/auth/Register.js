@@ -8,13 +8,14 @@ import { register } from '../../actions/auth';
 const Register = ({ setAlert, register, auth: { isAuthenticated } }) => {
   const [formData, setFormData] = useState({
     name: '',
+    surname: '',
     email: '',
     password: '',
     password2: '',
   });
 
   const {
-    name, email, password, password2,
+    name, surname, email, password, password2,
   } = formData;
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,7 +23,7 @@ const Register = ({ setAlert, register, auth: { isAuthenticated } }) => {
   const onSubmit = async e => {
     e.preventDefault();
     if (password !== password2) setAlert('Passwords do not match', 'danger');
-    else register({ name, email, password });
+    else register({ name, surname, email, password });
   };
 
   if (isAuthenticated) return <Redirect to="/workouts" />;
@@ -38,6 +39,15 @@ const Register = ({ setAlert, register, auth: { isAuthenticated } }) => {
             placeholder="Name"
             name="name"
             value={name}
+            onChange={e => onChange(e)}
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Surname"
+            name="surname"
+            value={surname}
             onChange={e => onChange(e)}
           />
         </div>

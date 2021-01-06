@@ -7,6 +7,8 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   LOGOUT,
+  CLEAR_PROFILE,
+  CLEAR_WORKOUTS,
 } from './types';
 import { api } from '../store';
 
@@ -29,7 +31,7 @@ export const loadUser = () => async dispatch => {
 // Register User
 export const register = formData => async dispatch => {
   try {
-    const res = await api.post('//users', formData);
+    const res = await api.post('/users', formData);
 
     dispatch(setAlert('User Registered', 'success'));
 
@@ -77,6 +79,8 @@ export const login = (email, password) => async dispatch => {
 
 // Logout
 export const logout = () => dispatch => {
+  dispatch({ type: CLEAR_PROFILE });
+  dispatch({ type: CLEAR_WORKOUTS });
   dispatch({ type: LOGOUT });
 
   dispatch(setAlert('User Logged Out', 'success'));

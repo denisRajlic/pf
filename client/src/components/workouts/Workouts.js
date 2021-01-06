@@ -32,18 +32,15 @@ const Workouts = ({
       {user && user.name && workouts && workouts.length > 0
         ? (
           <>
-            <h2 className="large text-primary">Here's Your Workout List</h2>
-            <div className="center-on-small">
+            <h2 className="large text-primary text-center">Here's Your Workout List</h2>
+            <div className="text-center">
               <Link to="/create-workout" className="btn btn-primary">Create New Workout</Link>
             </div>
           </>
         )
         : (
           <>
-            <h2 className="large text-primary">No Workouts Yet...Create Your First One Now!</h2>
-            <div className="page-center">
-              <Link to="/create-workout" className="btn btn-primary btn-large">Create Your First Workout</Link>
-            </div>
+            <p className="my-1 text-center">No workouts yet? <Link to="/create-workout">Create One Here</Link></p>
           </>
         )}
       {workouts && workouts.map((workout, index) => (

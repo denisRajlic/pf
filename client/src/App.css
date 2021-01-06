@@ -2,11 +2,12 @@
 :root {
   --primary-color: #155263;
   --dark-color: #1e3a42;
-  --third-color: #ff6f3c;
+  /* --third-color: #ff6f3c; */
+  --third-color: #db6772;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
-  
+  --colNum: 3;
 }
 
 * {
@@ -44,7 +45,14 @@ img {
   overflow: hidden;
   padding: 0 2rem;
   margin-top: 6rem;
-  margin-bottom: 3rem;
+}
+
+.alert-container {
+  max-width: 1100px;
+  margin: auto;
+  overflow: hidden;
+  padding: 0 2rem;
+  margin-top: 4rem;
 }
 
 .page-center {
@@ -53,6 +61,11 @@ img {
   align-items: center;
   width: 100%;
   height: 80vh;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
 }
 
 /* Text Styles*/
@@ -307,16 +320,6 @@ button {
   color: #0077b5;
 }
 
-.table th,
-.table td {
-  padding: 1rem;
-  text-align: left;
-}
-
-.table th {
-  background: var(--light-color);
-}
-
 /* Navbar */
 .navbar {
   display: flex;
@@ -368,141 +371,7 @@ button {
   text-align: center;
 }
 
-/* Profiles Page */
-.profile {
-  display: grid;
-  grid-template-columns: 2fr 4fr 2fr;
-  align-items: center;
-  grid-gap: 2rem;
-  padding: 1rem;
-  line-height: 1.8;
-  margin-bottom: 1rem;
-}
-
-/* Profile Page */
-.profile-grid {
-  display: grid;
-  grid-template-areas:
-    'top top'
-    'about about'
-    'exp edu'
-    'github github';
-  grid-gap: 1rem;
-}
-
-.profile-top {
-  grid-area: top;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.profile-top img {
-  width: 250px;
-}
-
-.profile-top .icons a {
-  color: #fff;
-  margin: 0 0.3rem;
-}
-
-.profile-top .icons a:hover {
-  color: var(--dark-color);
-}
-
-.profile-about {
-  grid-area: about;
-  text-align: center;
-}
-
-.profile-about .skills {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.profile-exp {
-  grid-area: exp;
-}
-
-.profile-edu {
-  grid-area: edu;
-}
-
-.profile-exp h2,
-.profile-edu h2 {
-  margin-bottom: 1rem;
-}
-
-.profile-exp > div,
-.profile-edu > div {
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: #ccc 1px dotted;
-}
-
-.profile-exp > div:last-child,
-.profile-edu > div:last-child {
-  border: 0;
-}
-
-.profile-exp p,
-.profile-edu p {
-  margin: 0.5rem 0;
-}
-
-.profile-github {
-  grid-area: github;
-}
-
-.profile-github .repo {
-  display: flex;
-}
-
-.profile-github .repo > div:first-child {
-  flex: 7;
-  flex-basis: 70%;
-}
-
-.profile-github > div:last-child {
-  flex: 3;
-  flex-basis: 20%;
-}
-
-/* Posts Page */
-.post-form .post-form-header {
-  background: var(--primary-color);
-  padding: 0.5rem;
-}
-
-.post {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-gap: 2rem;
-  align-items: center;
-}
-
-.post > div:first-child {
-  text-align: center;
-}
-
-.post img {
-  width: 100px;
-}
-
-.post .comment-count {
-  background: var(--light-color);
-  color: var(--primary-color);
-  padding: 0.1rem 0.2rem;
-  border-radius: 5px;
-  font-size: 0.8rem;
-}
-
 /* Workouts */
-
 .workout {
   border: solid 1px grey;
   border-radius: 32px;
@@ -529,10 +398,59 @@ button {
   opacity: 0.8;
 }
 
-.post .post-date {
-  color: #aaa;
-  font-size: 0.8rem;
-  margin-bottom: 0.5rem;
+/* Profile Page */
+.profile-logo-container {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-logo-text {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 100px;  
+  color: #fff;
+}
+
+.profile-logo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: var(--primary-color);
+}
+
+.profile-info {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.profile-workouts {
+  margin-top: 60px;
+}
+
+.profile-workouts-container {
+  display: grid;
+  grid-template-columns: repeat(var(--colNum), 1fr);
+  justify-items: center;
+  height: 30vh;
+}
+
+.profile-workout-card {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  height: 200px;
+  width: 200px;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 16px;
+  white-space: nowrap;
+  padding: 16px;
 }
 
 /* Mobile Styles */
@@ -577,51 +495,6 @@ button {
     display: none;
   }
 
-  /* Profiles Page */
-  .profile {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .profile ul {
-    display: none;
-  }
-
-  /* Profile Page */
-
-  .profile-top img,
-  .profile img {
-    width: 200px;
-    margin: auto;
-  }
-
-  .profile-grid {
-    grid-template-areas:
-      'top'
-      'about'
-      'exp'
-      'edu'
-      'github';
-  }
-
-  .profile-about .skills {
-    flex-direction: column;
-  }
-
-  .dash-buttons a {
-    display: block;
-    width: 100%;
-    margin-bottom: 0.2rem;
-  }
-
-  .post {
-    grid-template-columns: 1fr;
-  }
-  .post a,
-  .post button {
-    padding: 0.3rem 0.4rem;
-  }
-  
   /* Workout */
   .workout-grid {
     grid-template-columns: 1fr;
@@ -629,10 +502,35 @@ button {
 
   /* Buttons */
   .buttons {
-    text-align: center;
+    text-align: center;    
+  }
+
+  .grid-on-small {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 
   .center-on-small {
     text-align: center;
+  }
+
+  .profile-info {
+    width: 100%;
+  }
+
+  .profile-info h2 {
+    font-size: 1rem;
+  }
+
+  .profile-workouts-container {
+    grid-template-columns: 1fr;
+    height: 100%;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .profile-workout-card {
+    max-height: 150px;
   }
 }
