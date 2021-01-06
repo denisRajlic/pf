@@ -57,6 +57,7 @@ const CreateProfile = ({ createProfile, stateProfile }) => {
             onChange={e => onChange(e)}
             name="weight"
             minLength="1"
+            maxLength="6"
           />
         </div>
         <h2 className="text-primary">Height</h2>
@@ -68,6 +69,7 @@ const CreateProfile = ({ createProfile, stateProfile }) => {
             onChange={e => onChange(e)}
             name="height"
             minLength="1"
+            maxLength="6"
           />
         </div>
         <h2 className="text-primary">Gender</h2>
@@ -79,6 +81,7 @@ const CreateProfile = ({ createProfile, stateProfile }) => {
             onChange={e => onChange(e)}
             name="gender"
             minLength="1"
+            maxLength="6"
           />
         </div>
 

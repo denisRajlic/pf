@@ -79,8 +79,13 @@ const Profile = ({
         </div>
 
         <section className="profile-workouts">
-          <h1 className="large text-primary text-center">Your Latest Workouts</h1>
-          <div className="profile-workouts-container">
+          {workouts.length > 0 ? (
+            <>
+            <h1 className="large text-primary text-center">Your Latest Workouts</h1>
+            <div className="profile-workouts-container">
+            {/* Change CSS column variable depending on how many workouts the user has */}
+            {workouts.length < 3 ? (document.documentElement.style.setProperty('--colNum', workouts.length)) : (document.documentElement.style.setProperty('--colNum', 3)) }
+
             {workouts.slice(0, 3).map(workout => (
               <div key={workout._id} className="profile-workout-card">
               {
@@ -96,6 +101,12 @@ const Profile = ({
           <div className="text-center">
             <Link to="/workouts">View All Workouts</Link>
           </div>
+            </>
+          ) : (
+            <>
+              <p className="my-1 text-center">No workouts yet? <Link to="/create-workout">Create one here</Link></p>
+            </>
+          )}
         </section>
         </>
       )}
