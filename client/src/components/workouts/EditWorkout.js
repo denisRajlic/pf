@@ -202,7 +202,7 @@ const EditWorkout = ({
             />
           </label>
         </div>
-        <div className="buttons">
+        <div className="grid-on-small">
           <input type="submit" className="btn btn-primary" value="Update" />
           <Link to="/workouts" className="btn btn-secondary">Go Back</Link>
         </div>

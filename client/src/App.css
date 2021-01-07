@@ -45,6 +45,7 @@ img {
   overflow: hidden;
   padding: 0 2rem;
   margin-top: 6rem;
+  margin-bottom: 3rem;
 }
 
 .alert-container {
@@ -165,6 +166,7 @@ img {
   margin-right: 0.5rem;
   transition: opacity 0.2s ease-in;
   outline: none;
+  text-align: center;
 }
 
 .btn-large {

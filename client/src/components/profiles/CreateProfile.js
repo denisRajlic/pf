@@ -36,7 +36,7 @@ const CreateProfile = ({ createProfile, stateProfile }) => {
       </p>
 
       <form className="form" onSubmit={e => onSubmit(e)}>
-        <h2 className="text-primary">Birth Date (mm-dd-yyyy)</h2>
+        <h2 className="text-primary">Birth Date (mm/dd/yyyy)</h2>
         <div className="form-group">
           <input
             type="date"

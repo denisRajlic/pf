@@ -48,7 +48,7 @@ const EditProfile = ({ loadUser, createProfile, getProfile, stateProfile }) => {
 
       <form className="form" onSubmit={e => onSubmit(e)}>
         <h2 className="text-primary">Birth Date</h2>
-        <p className="text-primary">(mm-dd-yyyy)</p>
+        <p className="text-primary">(mm/dd/yyyy)</p>
         <div className="form-group">
           <input
             type="date"
@@ -98,7 +98,7 @@ const EditProfile = ({ loadUser, createProfile, getProfile, stateProfile }) => {
         </div>
 
         <div className="grid-on-small">
-          <input type="submit" className="btn btn-primary" value="Create Profile" />
+          <input type="submit" className="btn btn-primary" value="Edit Profile" />
           <Link to='/profile' className="btn btn-light">Back To Profile</Link>
         </div>
       </form>

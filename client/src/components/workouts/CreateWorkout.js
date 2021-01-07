@@ -174,7 +174,7 @@ const CreateWorkout = ({ createWorkout, history, setAlert }) => {
             />
           </label>
         </div>
-        <div className="buttons">
+        <div className="grid-on-small">
           <input type="submit" className="btn btn-primary" value="Create" />
           <Link to="/workouts" className="btn btn-secondary">Go Back</Link>
         </div>
