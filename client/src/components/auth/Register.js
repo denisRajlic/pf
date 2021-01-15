@@ -34,52 +34,67 @@ const Register = ({ setAlert, register, auth: { isAuthenticated } }) => {
       <p className="lead"><i className="fas fa-user" />{' '}Create Your Account</p>
       <form className="form" onSubmit={e => onSubmit(e)}>
         <div className="form-group">
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            value={name}
-            onChange={e => onChange(e)}
-          />
+          <label className="text-primary label">
+            Name
+            <input
+              type="text"
+              placeholder="Name"
+              name="name"
+              value={name}
+              onChange={e => onChange(e)}
+            />
+          </label>
         </div>
         <div className="form-group">
-          <input
-            type="text"
-            placeholder="Surname"
-            name="surname"
-            value={surname}
-            onChange={e => onChange(e)}
-          />
+          <label className="text-primary label">
+            Surname
+            <input
+              type="text"
+              placeholder="Surname"
+              name="surname"
+              value={surname}
+              onChange={e => onChange(e)}
+            />
+          </label>
         </div>
         <div className="form-group">
-          <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
-            value={email}
-            onChange={e => onChange(e)}
-            required
-          />
+          <label className="text-primary label">
+            Email
+            <input
+              type="email"
+              placeholder="Email Address"
+              name="email"
+              value={email}
+              onChange={e => onChange(e)}
+              required
+            />
+          </label>
         </div>
         <div className="form-group">
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={e => onChange(e)}
-            minLength="6"
-          />
+          <label className="text-primary label">
+            Password
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={e => onChange(e)}
+              minLength="6"
+            />
+          </label>
         </div>
         <div className="form-group">
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={password2}
-            onChange={e => onChange(e)}
-            name="password2"
-            minLength="6"
-          />
+          <label className="text-primary label">
+            Confirm Password
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={password2}
+              onChange={e => onChange(e)}
+              name="password2"
+              minLength="6"
+            />
+          </label>
         </div>
         <input type="submit" className="btn btn-primary" value="Register" />
       </form>

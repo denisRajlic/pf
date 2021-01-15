@@ -73,16 +73,18 @@ const CreateWorkout = ({ createWorkout, history, setAlert }) => {
       <h1 className="text-primary text-center">Create Workout</h1>
 
       <form className="form" onSubmit={e => onSubmit(e)}>
-        <h2 className="text-primary">Title</h2>
         <div className="form-group">
-          <input
-            type="text"
-            placeholder="Workout Title"
-            value={title}
-            onChange={e => onChange(e)}
-            name="title"
-            minLength="1"
-          />
+          <label className="text-primary label">
+            Title
+            <input
+              type="text"
+              placeholder="Workout Title"
+              value={title}
+              onChange={e => onChange(e)}
+              name="title"
+              minLength="1"
+            />
+          </label>
         </div>
         <h2 className="text-primary">List Exercises</h2>
         {exercises && exercises.length > 0 && (
@@ -96,70 +98,88 @@ const CreateWorkout = ({ createWorkout, history, setAlert }) => {
         )}
 
         <div className="form-group">
-          <input
-            type="text"
-            placeholder="Name"
-            value={!exercises[selectedEx] && !exercises[selectedEx].name ? '' : exercises[selectedEx].name}
-            onChange={e => onExChange(e)}
-            name="name"
-            minLength="1"
-            required
-          />
+          <label className="text-primary label">
+            Name
+            <input
+              type="text"
+              placeholder="Name"
+              value={!exercises[selectedEx] && !exercises[selectedEx].name ? '' : exercises[selectedEx].name}
+              onChange={e => onExChange(e)}
+              name="name"
+              minLength="1"
+              required
+            />
+          </label>
         </div>
 
         <div className="form-group">
-          <input
-            type="text"
-            placeholder="Body Part"
-            value={!exercises[selectedEx] && !exercises[selectedEx].bodypart ? '' : exercises[selectedEx].bodypart}
-            onChange={e => onExChange(e)}
-            name="bodypart"
-            minLength="1"
-          />
+          <label className="text-primary label">
+            Body part
+            <input
+              type="text"
+              placeholder="Body Part"
+              value={!exercises[selectedEx] && !exercises[selectedEx].bodypart ? '' : exercises[selectedEx].bodypart}
+              onChange={e => onExChange(e)}
+              name="bodypart"
+              minLength="1"
+            />
+          </label>
         </div>
 
         <div className="form-group">
-          <input
-            type="text"
-            placeholder="Sets"
-            value={!exercises[selectedEx] && !exercises[selectedEx].sets ? '' : exercises[selectedEx].sets}
-            onChange={e => onExChange(e)}
-            name="sets"
-            minLength="1"
-          />
+          <label className="text-primary label">
+            Sets
+            <input
+              type="text"
+              placeholder="Sets"
+              value={!exercises[selectedEx] && !exercises[selectedEx].sets ? '' : exercises[selectedEx].sets}
+              onChange={e => onExChange(e)}
+              name="sets"
+              minLength="1"
+            />
+          </label>
         </div>
 
         <div className="form-group">
-          <input
-            type="text"
-            placeholder="Reps"
-            value={!exercises[selectedEx] && !exercises[selectedEx].reps ? '' : exercises[selectedEx].reps}
-            onChange={e => onExChange(e)}
-            name="reps"
-            minLength="1"
-          />
+          <label className="text-primary label">
+            Reps
+            <input
+              type="text"
+              placeholder="Reps"
+              value={!exercises[selectedEx] && !exercises[selectedEx].reps ? '' : exercises[selectedEx].reps}
+              onChange={e => onExChange(e)}
+              name="reps"
+              minLength="1"
+            />
+          </label>
         </div>
 
         <div className="form-group">
-          <input
-            type="text"
-            placeholder="Weight"
-            value={!exercises[selectedEx] && !exercises[selectedEx].weight ? '' : exercises[selectedEx].weight}
-            onChange={e => onExChange(e)}
-            name="weight"
-            minLength="1"
-          />
+          <label className="text-primary label">
+            Weight
+            <input
+              type="text"
+              placeholder="Weight"
+              value={!exercises[selectedEx] && !exercises[selectedEx].weight ? '' : exercises[selectedEx].weight}
+              onChange={e => onExChange(e)}
+              name="weight"
+              minLength="1"
+            />
+          </label>
         </div>
 
         <div className="form-group">
-          <input
-            type="text"
-            placeholder="Comment"
-            value={!exercises[selectedEx] && !exercises[selectedEx].comment ? '' : exercises[selectedEx].comment}
-            onChange={e => onExChange(e)}
-            name="comment"
-            minLength="1"
-          />
+          <label className="text-primary label">
+            Comment
+            <input
+              type="text"
+              placeholder="Comment"
+              value={!exercises[selectedEx] && !exercises[selectedEx].comment ? '' : exercises[selectedEx].comment}
+              onChange={e => onExChange(e)}
+              name="comment"
+              minLength="1"
+            />
+          </label>
         </div>
 
         <div className="btn btn-primary" onClick={e => onAddExercise(e)}>Add another exercise</div>
