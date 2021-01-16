@@ -1,5 +1,5 @@
 import React, {
-  useState, Fragment,
+  useState, Fragment, useEffect
 } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -9,6 +9,10 @@ import setAlert from '../../actions/alert';
 import { createWorkout } from '../../actions/workout';
 
 const CreateWorkout = ({ createWorkout, history, setAlert }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [selectedEx, setSelectedEx] = useState(0);
 
   const [state, setState] = useState({

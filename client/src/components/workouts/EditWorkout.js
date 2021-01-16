@@ -17,6 +17,10 @@ const EditWorkout = ({
   setAlert,
   loadUser,
 }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [selectedEx, setSelectedEx] = useState(0);
 
   const [currentWorkout, setWorkout] = useState({

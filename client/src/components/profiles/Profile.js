@@ -16,6 +16,10 @@ const Profile = ({
   workout: { workouts },
 }) => {
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (localStorage.token) setAuthToken(localStorage.token);
     loadUser();
     getProfile();

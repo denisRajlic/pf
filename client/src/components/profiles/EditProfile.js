@@ -8,18 +8,22 @@ import { loadUser } from '../../actions/auth';
 import { setAuthToken } from '../../store';
 
 const EditProfile = ({ loadUser, createProfile, getProfile, stateProfile }) => {
-  const [profile, setProfile] = useState({
-    birthDate: '',
-    weight: '',
-    height: '',
-    gender: '',
-  });
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     if (localStorage.token) setAuthToken(localStorage.token);
     loadUser();
     getProfile();
   }, [loadUser, getProfile]);
+
+  const [profile, setProfile] = useState({
+    birthDate: '',
+    weight: '',
+    height: '',
+    gender: '',
+  });
 
   useEffect(() => {
     setProfile({

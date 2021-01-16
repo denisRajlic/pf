@@ -1,10 +1,14 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
 
 const CreateProfile = ({ createProfile, stateProfile }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [profile, setProfile] = useState({
     birthDate: '',
     weight: '',
