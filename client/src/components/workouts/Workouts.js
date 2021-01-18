@@ -50,11 +50,12 @@ const Workouts = ({
       {workouts && workouts.map((workout, index) => (
         <Fragment key={index}>
           <div className="workout">
-            <h2 className="large text-primary">{workout.title}</h2>
+            <h2 className="large text-primary center-on-small">{workout.title}</h2>
+            <p className="text-primary center-on-small">{formatDate(workout.date)}</p>
             <div className="workout-grid">
               {workout.exercises.map((exercise, index) => {
                 const {
-                  name, bodypart, reps, sets, weight, comment, date,
+                  name, bodypart, reps, sets, weight, comment,
                 } = exercise;
                 return (
                   <Fragment key={index}>
@@ -66,8 +67,6 @@ const Workouts = ({
                       <h3><span className="text-third">Reps</span> - {reps}</h3>
                       <h3><span className="text-third">Weight</span> - {weight}</h3>
                       <h3><span className="text-third">Comment</span> - {comment}</h3>
-                      <h3><span className="text-third">Date</span> - {formatDate(date)}</h3>
-
                     </div>
                   </Fragment>
                 );

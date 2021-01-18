@@ -32,6 +32,7 @@ router.post('/', [auth, [
             title: req.body.title,
             exercises: req.body.exercises,
             isPublic: req.body.isPublic,
+            date: new Date(),
           },
         },
         { new: true },
